@@ -16,7 +16,11 @@ public class EstoqueServiceMemory {
     public List<Produto> listarProdutos() {
         return estoque;
     }
-
+    public void PrintarProdutosDaCategoria(Categoria categoria){
+        for (Produto p : this.listarPorCategoria(categoria)){
+            p.PrintProduto();
+        }
+    }
     public List<Produto> listarPorCategoria(Categoria categoria) {
         List<Produto> filtrados = new ArrayList<>();
 
