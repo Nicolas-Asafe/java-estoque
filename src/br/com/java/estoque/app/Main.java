@@ -1,18 +1,20 @@
 package br.com.java.estoque.app;
-import br.com.java.estoque.data.EstoqueMemory;
+import br.com.java.estoque.respository.EstoqueRepositoryMemory;
 import br.com.java.estoque.model.Categoria;
-import br.com.java.estoque.model.Produto;
-import br.com.java.estoque.service.EstoqueServiceMemory;
+import br.com.java.estoque.service.EstoqueService;
 
 import java.security.InvalidKeyException;
 import java.util.Scanner;
 
 class Main {
     static void main(String[] args) throws InvalidKeyException {
-        EstoqueServiceMemory estoqueService = new EstoqueServiceMemory();
-        EstoqueMemory estoqueData = new EstoqueMemory();
-        estoqueData.GenerateEstoque();
-        estoqueService.estoque = estoqueData.estoque.estoque;
+
+        //inicializa estoque repository e estoque service
+        EstoqueRepositoryMemory estoqueRepository = new EstoqueRepositoryMemory();
+        EstoqueService estoqueService = new EstoqueService(estoqueRepository);
+
+        estoqueService.estoqueRepository.generateEstoque();
+
         Scanner sc = new Scanner(System.in);
         System.out.println("[1] - Laticinios");
         System.out.println("[2] - Bebidas");

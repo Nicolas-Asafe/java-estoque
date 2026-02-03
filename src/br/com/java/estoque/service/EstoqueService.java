@@ -1,20 +1,26 @@
 package br.com.java.estoque.service;
 import br.com.java.estoque.model.Produto;
 import br.com.java.estoque.model.Categoria;
+import br.com.java.estoque.respository.EstoqueRepositoryMemory;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class EstoqueServiceMemory {
+public class EstoqueService {
 
-    public List<Produto> estoque = new ArrayList<>();
+    public EstoqueRepositoryMemory estoqueRepository;
 
-        public void adicionarProduto(int id, String nome, double preco, int quantidade, Categoria categoria) {
+    public EstoqueService(EstoqueRepositoryMemory repo){
+        this.estoqueRepository = repo;
+    }
+
+    public void adicionarProduto(int id, String nome, double preco, int quantidade, Categoria categoria) {
         Produto produto = new Produto(id, nome, preco, quantidade, categoria);
-        estoque.add(produto);
+        estoqueRepository.estoque.add(produto);
     }
 
     public List<Produto> listarProdutos() {
-        return estoque;
+        return estoqueRepository.estoque;
     }
     public void PrintarProdutosDaCategoria(Categoria categoria){
         for (Produto p : this.listarPorCategoria(categoria)){
@@ -24,7 +30,7 @@ public class EstoqueServiceMemory {
     public List<Produto> listarPorCategoria(Categoria categoria) {
         List<Produto> filtrados = new ArrayList<>();
 
-        for (Produto produto : estoque) {
+        for (Produto produto : estoqueRepository.estoque) {
             if (produto.getCategoria() == categoria) {
                 filtrados.add(produto);
             }
