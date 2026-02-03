@@ -1,18 +1,33 @@
 package br.com.java.estoque.service;
 import br.com.java.estoque.model.Produto;
+import br.com.java.estoque.model.Categoria;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EstoqueServiceMemory {
-    List<Produto> estoque = new ArrayList<Produto>();
 
-    public void adicionarProduto(int id, String nome, double preco, int quantidade) {
-        Produto produto = new Produto(nome, id, preco, quantidade);
+    public List<Produto> estoque = new ArrayList<>();
+
+        public void adicionarProduto(int id, String nome, double preco, int quantidade, Categoria categoria) {
+        Produto produto = new Produto(id, nome, preco, quantidade, categoria);
         estoque.add(produto);
     }
-    public void listarProdutos() {
+
+    public List<Produto> listarProdutos() {
+        return estoque;
+    }
+
+    public List<Produto> listarPorCategoria(Categoria categoria) {
+        List<Produto> filtrados = new ArrayList<>();
+
         for (Produto produto : estoque) {
-            produto.PrintProduto();
+            if (produto.getCategoria() == categoria) {
+                filtrados.add(produto);
+            }
         }
+
+        return filtrados;
     }
 }
+
+
